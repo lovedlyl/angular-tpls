@@ -1,0 +1,260 @@
+
+
+
+//- 
+	bootstrap常用片段mixin封装
+	顺序按名称首字母排列
+
+//- 
+	options.dismissable: 是否可关闭 false/true
+	oprions.info|success|warning|danger: 警示框类别 alert-info alert-success alert-warning alert-danger
+	*block*: 必填，警示框内容
+
+mixin alert(options)
+	- var cat = "alert"
+	if (options.info)
+		-cat += " alert-info"
+
+	if (options.success)
+		-cat += " alert-success"
+
+	if (options.warning)
+		-cat += " alert-warning"
+
+	if (options.danger)
+		-cat += " alert-danger"
+
+	if (options.dismissable)
+		-cat += " dismissable"
+	div(class=cat, role="alert")
+		if (options.dismissable)
+			button(type="button", data-dismiss="alert").close &times;
+			span.sr-only(aria-hidden="true") &times;
+		if block 
+			block
+
+mixin badge(content)
+	- var num = "0"
+	if content 
+		-num = content
+	span.badge #{num}
+		if block 
+			block
+
+mixin carousel(options)
+	-var selector = options.selector
+	-var items = options.items
+	-var i = 0
+	.carousel.slide(data-ride="carousel", id=selector.substring(1), data-interval="2000")
+		ol.carousel-indicators
+			while (i<items)
+				if (i == 0)
+					li(data-target=selector, data-slide-to=i).active
+				else
+					li(data-target=selector, data-slide-to=i)
+				-i++
+		.carousel-inner
+			if block
+				block
+		a(href=selector, data-slide="prev").carousel-control.left
+			span.glyphicon.glyphicon-chevron-left
+		a(href=selector, data-slide="next").carousel-control.right
+			span.glyphicon.glyphicon-chevron-right
+
+			
+mixin imageModal(url)
+	-var ID = "imageModal" + parseInt(Math.random() * 10)
+	div
+		.container
+			.row
+				.col-xs-3.col-sm-3.col-md-3.col-lg-3
+					img(src=url, alt="").img-responsive 
+					button(type="button", data-toggle="modal", data-target="#" + ID).btn.btn-info 查看大图
+	.modal.fade(id=ID)
+		.modal-dialog.modal-lg 
+			.modal-content
+				.modal-header
+					+X("modal")
+				.modal-body
+					img(src=url, alt="").img-responsive
+
+
+//- 
+	oprions.info|success|warning|danger: 警示框类别 progress-bar-info progress-bar-success progress-bar-warning progress-bar-danger
+	options.progress: 当前进度 数值 20 30...
+	options.withNumber: 进度条中是否显示数值 布尔值 true false
+mixin progress-bar(options)
+	- var cat = ""
+	if (options.info)
+		-cat += " progress-bar-info"
+
+	if (options.success)
+		-cat += " progress-bar-success"
+
+	if (options.warning)
+		-cat += " progress-bar-warning"
+
+	if (options.danger)
+		-cat += " progress-bar-danger"
+
+	.progress-bar(class=cat, role="progressbar", aria-valuenow=options.progress, aria-valuemin="0", aria-valuemax="100", style="width: " + options.progress + "%;")
+		span.sr-only #{"完成" + options.progress + "%"}
+		if (options.withNumber)
+			| #{"已完成" + options.progress + "%"}
+
+//- options.url：包含图片的链接的地址,默认为”#“
+	options.imageUrl: 图片地址
+	options.Alt: 图片的alt属性，默认为空
+	options.imageRight: 图片是否位于左边
+	options.imageMiddle/Top/Bottom: 图片垂直对齐方向
+	options.bodyMiddle/Top/Bottom: 主体部分垂直对齐方向
+	options.inList: 整个媒体对象是否作为.media-list的单个项目
+mixin mediaHelper(options)
+	- var url = "#"
+	- var imageUrl = options.imageUrl
+	- var imageAlt = ""
+
+	- var imageMiddle = ""
+	if (options.imageMiddle)
+		-imageMiddle = "media-middle"
+	if (options.imageTop)
+		-mageMiddle = "media-top"
+	if (options.imageBottom)
+		-imageMiddle = "media-bottom"
+
+	- var bodyMiddle = ""
+	if (options.bodyMiddle)
+		-bodyMiddle = "media-middle"
+	if (options.bodyTop)
+		-bodyMiddle = "media-top"
+	if (options.bodyBottom)
+		-bodyMiddle = "media-bottom"
+
+	if (options.url)
+		-url = options.url
+	if (options.imageAlt)
+		- imageAlt = options.imageAlt
+
+	if (!options.imageRight)
+		a(href=url, class=imageMiddle).media-left
+			img(src=imageUrl, alt=imageAlt).media-object
+	.media-body(class=bodyMiddle)
+		if block 
+			block
+	if (options.imageRight)
+		a(href=url, class=imageMiddle).media-right
+			img(src=imageUrl, alt=imageAlt).media-object
+
+
+mixin media(options)
+	- var inList = options.inList
+	if (inList)
+		li.media
+			+mediaHelper(options)
+				if block
+					block
+	else 
+		.media
+			+mediaHelper(options)
+				if block
+					block
+
+
+
+
+			
+
+//- 
+	options.cat, options.progress, options.withNumber: 同上
+	options.striped: 进度条是否有条纹 布尔值 false true
+	options.active: 进度条是否有闪烁效果 布尔值 false true
+	不足：不支持多个进度条水平排列
+mixin progress(options)
+	if (options.striped)
+		if (options.active)
+			.progress.progress-striped.active
+				+progress-bar(options)
+		else 
+			.progress.progress-striped
+				+progress-bar(options)
+	else
+		.progress
+			+progress-bar(options)
+
+
+mixin responsiveNavbarButtons(selector)
+	button(type="button", data-toggle="collapse", data-target=selector).navbar-toggle.collapsed
+		span.sr-only 切换导航
+		each i in [1,2,4]
+			span.icon-bar
+//- 
+	options.bordered: 表格是否有边框
+	options.hover: 鼠标悬浮行时，是否有提醒
+	options.striped: 表格是否有斑马线样式
+	optipns.condensed: 表格是否为仅紧凑型结构
+	options.heades: 表格的头部（不足，只能是纯文字）
+	options.responsive: 表格是否采用响应式布局
+	block: 表格主体部分，也可以包含表格尾部
+//- mixin tableHelper()
+
+
+mixin table2(options)
+	if (options.responsive)
+		.table-responsive
+			table.table(class!=attributes.class)
+				thead
+					tr 
+						each head in options.headers 
+							td
+								strong= head 
+				if block
+					tbody 
+						block  
+	else
+		table.table(class!=attributes.class)
+			thead
+				tr 
+					each head in options.headers 
+						td
+							strong= head 
+			if block
+				tbody 
+					block 
+
+
+//- mixin table(options)
+//- 	-var cat = "table"
+//- 	if (options.bordered)
+//- 		-cat += " table-bordered"
+//- 	if (options.hover)
+//- 		-cat += " table-hover"
+//- 	if (options.striped)
+//- 		-cat += " table-striped"
+//- 	if (options.condensed)
+//- 		-cat += " table-condensed"
+//- 	if (options.responsive)
+//- 		.table-responsive
+//- 			table(class=cat)
+//- 				thead
+//- 					tr 
+//- 						each head in options.headers 
+//- 							td= head 
+//- 				if block
+//- 					tbody 
+//- 						block  
+//- 	else
+//- 		table(class=cat)
+//- 			thead
+//- 				tr 
+//- 					each head in options.headers 
+//- 						td= head 
+//- 			if block
+//- 				tbody 
+//- 					block 	
+
+
+mixin X(dismiss)
+	button(type="button", data-dismiss=dismiss).close
+		span(aria-hidden="true") &times;
+		span.sr-only 关闭
+
