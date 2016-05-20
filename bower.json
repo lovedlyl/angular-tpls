@@ -1,0 +1,30 @@
+{
+    "name": "angular-tpls",
+    "description": "angularjs 框架",
+    "main": "index.js",
+    "authors": [
+        "claudio"
+    ],
+    "license": "ISC",
+    "keywords": [
+        "angularjs",
+        "框架",
+        "bootstrap",
+        "jquery",
+        "claudio",
+        "lovedlyl"
+    ],
+    "homepage": "https://github.com/lovedlyl/angular-tpls.git",
+    "private": true,
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components",
+        "test",
+        "tests"
+    ],
+    "devDependencies": {
+        "bootstrap": "^3.3.6",
+        "angular": "^1.5.5"
+    }
+}
