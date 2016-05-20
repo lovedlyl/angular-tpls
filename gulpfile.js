@@ -11,7 +11,7 @@ var jsonMin = require("gulp-json-minify");
 var util = require("gulp-util");
 var cssMin = require("gulp-clean-css");
 // 将pug文件转换为html文件
-gulp.task("convertPug", function() {
+var convertPug = function() {
     gulp.src("src/index.pug")
         .pipe(plumber())
         .pipe(pug({ pretty: false }))
@@ -24,9 +24,11 @@ gulp.task("convertPug", function() {
         .pipe(pug({ pretty: false }))
         .pipe(plumber.stop())
         .pipe(gulp.dest("dist/templates"))
-        .pipe(stream());
+        .pipe(stream())
+};
+convertPug();
+gulp.task("convertPug", convertPug);
 
-});
 
 // 合并库文件
 var lib = function() {
