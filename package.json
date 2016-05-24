@@ -7,6 +7,9 @@
         "prestart": "npm install",
         "start": "gulp",
         "test": "node node_modules/karma/bin/karma start test/karma.conf.js",
+
+        "update-webdriver": "webdriver-manager update",
+        "preprotractor": "npm run update-webdriver",
         "protractor": "protractor test/protractor-conf.js"
     },
     "repository": {
