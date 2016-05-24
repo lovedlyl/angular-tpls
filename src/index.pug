@@ -3,6 +3,13 @@ extends layout
 block title
 	title Angular js in action
 
-//- block content
-	.container
-		hello
+block content
+	.container(ng-controller="PhoneListCtrl")
+		.row
+			.col-md-2
+				|搜索：
+				input(type="text" ng-model="query")
+			.col-md-10
+				ul: li(ng-repeat="phone in phones | filter:query")
+					span {{phone.name}}
+					p {{phone.snipet}}

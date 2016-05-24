@@ -42,7 +42,9 @@ var lib = function() {
 
     // 脚本
     gulp.src(["bower_components/angular/angular.min.js",
-            "bower_components/angular-route/angular-route.min.js",
+            "bower_components/angular-mocks/angular-mocks.js",
+            "bower_components/angular-route/angular-route.min.js"
+
             // "bower_components/jquery/dist/jquery.min.js",
             // "bower_components/bootstrap/dist/js/bootstrap.min.js"
         ])
@@ -58,7 +60,7 @@ var scripts = function() {
     gulp.src("src/scripts/**/*.js")
         .pipe(concat("app.js"))
         .pipe(plumber())
-        .pipe(uglify())
+        // .pipe(uglify())
         .pipe(plumber.stop())
         .pipe(gulp.dest("dist/scripts"))
         .pipe(stream())
@@ -109,7 +111,7 @@ gulp.task("default", function() {
 
     gulp.watch(["src/*.pug", "src/templates/**/*.pug"], ["convertPug", browserSync.reload]);
     // gulp.watch(["dist/*.html", "dist/templates/*.html"]).on("change", browserSync.reload);
-    
+
     gulp.watch("src/styles/**/*.css", ["styles", browserSync.reload]);
     gulp.watch("src/scripts/**/*.js", ["scripts", browserSync.reload]);
     gulp.watch("src/images/**/*.*", ["images", browserSync.reload]);
