@@ -60,7 +60,7 @@ var scripts = function() {
     gulp.src("src/scripts/**/*.js")
         .pipe(concat("app.js"))
         .pipe(plumber())
-        // .pipe(uglify())
+        .pipe(uglify())
         .pipe(plumber.stop())
         .pipe(gulp.dest("dist/scripts"))
         .pipe(stream())
