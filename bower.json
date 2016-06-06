@@ -1,0 +1,36 @@
+{
+  "name": "angular-tpls",
+  "description": "angularjs 模板",
+  "main": "gulpfile.js",
+  "authors": [
+    "claudio"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "angularjs",
+    "模板"
+  ],
+  "homepage": "https://github.com/lovedlyl/angular-tpls",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "angular": "^1.5.6",
+    "bootstrap": "^3.3.6",
+    "zepto": "madrobby/zepto#^1.1.6",
+    "angular-mocks": "^1.5.6",
+    "angular-route": "^1.5.6",
+    "angular-resource": "^1.5.6",
+    "angular-carousel": "^1.0.1",
+    "angular-animate": "^1.5.6",
+    "angular-cookies": "^1.5.6",
+    "angular-i18n": "^1.5.6",
+    "angular-sanitize": "^1.5.6",
+    "angular-scenario": "^1.5.6",
+    "angular-touch": "^1.5.6"
+  }
+}

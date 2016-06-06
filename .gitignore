@@ -5,3 +5,4 @@
 /.org.*/
 /karma*/
 npm-debug.log
+.sass-cache
