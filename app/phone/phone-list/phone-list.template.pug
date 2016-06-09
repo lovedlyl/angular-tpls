@@ -1,0 +1,27 @@
+.container
+	.row
+		.col-md-2
+			.form-group
+				|搜索：
+				input(ng-model="$ctrl.query").form-control
+				//- p {{$ctrl.query}}
+			.form-group
+				|排序：
+				select(ng-model="$ctrl.orderProp").form-control
+					option(value="name") 名称
+					option(value="age") 最新
+					option(value="-age") 最旧
+		.col-md-10
+			//- pre {{$ctrl.phones | filter:$ctrl.query | orderBy:$ctrl.orderProp| json}}
+			p 一共有{{$ctrl.phones.length}}种手机
+			p 你好{{$ctrl.name}}
+			ul.list-unstyled.phones
+				li.thumbnail(ng-repeat="phone in $ctrl.phones | filter:$ctrl.query | orderBy:$ctrl.orderProp" )
+					a(href="#/phones/{{phone.id}}").thumb
+						img(ng-src="{{phone.imageUrl}}" alt="{{phone.name}}")
+					a(href="#/phones/{{phone.id}}") {{phone.name}}
+					p {{phone.snippet}}
+					
+
+					//- span {{phone.name}}
+					//- p {{phone.snippet}}

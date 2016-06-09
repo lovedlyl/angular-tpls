@@ -3,9 +3,6 @@
     "version": "1.0.0",
     "description": "angularjs 模板",
     "main": "gulpfile.js",
-    "scripts": {
-        "test": "test"
-    },
     "repository": {
         "type": "git",
         "url": "git+https://github.com/lovedlyl/angular-tpls.git"
@@ -20,18 +17,27 @@
         "url": "https://github.com/lovedlyl/angular-tpls/issues"
     },
     "homepage": "https://github.com/lovedlyl/angular-tpls#readme",
+    "scripts": {
+        "test": "node node_modules/karma/bin/karma start test/karma.conf.js",
+        "test-single-run": "node node_modules/karma/bin/karma start test/karma.conf.js  --single-run",
+
+        "update-webdriver": "webdriver-manager update",
+        "pree2e": "npm run update-webdriver",
+        "e2e": "protractor test/protractor-conf.js"
+    },
     "devDependencies": {
         "bower": "^1.7.9",
         "browser-sync": "^2.12.7",
         "gulp": "^3.9.1",
-        "gulp-ruby-sass": "^2.0.6",
         "gulp-clean-css": "^2.0.7",
         "gulp-concat": "^2.6.0",
         "gulp-imagemin": "^3.0.1",
         "gulp-json-minify": "^1.0.4",
+        "gulp-order": "^1.1.1",
         "gulp-plumber": "^1.1.0",
         "gulp-pug": "^3.0.1",
         "gulp-rename": "^1.2.2",
+        "gulp-ruby-sass": "^2.0.6",
         "gulp-uglify": "^1.5.3",
         "gulp-util": "^3.0.7",
         "jasmine-core": "^2.4.1",

@@ -1,0 +1,1 @@
+A.module("phone", ["phoneCore", "phoneList", "phoneDetail"]);

@@ -1,1 +1,23 @@
-include _layout
+doctype html
+html(lang="zh-CN" ng-app="phonecatApp")
+	head
+		meta(charset="utf-8")
+		meta(http-equiv="X-UA-Compatible" content="IE=edge")
+		meta(name="viewport" content="width=device-width, initial-scale=1.0")
+		each style in ["lib.css", "main.css"]
+			link(rel="stylesheet" href="css/"+ style)
+		title angular
+		each script in ["lib.js", "index.js"]
+				script(src="js/" + script)
+	body
+		//- p.
+			{{'lower cap string' | uppercase}}
+			{{{foo: 'bar', baz: 42} | json}}
+			{{1459461289000 | date}}
+			{{1459461289000 | date:'MM/dd/yyyy @ h:mma'}}
+		//- .container
+		//- 	p.lead angularjs
+		//- phone-list
+		div(ng-view)
+
+

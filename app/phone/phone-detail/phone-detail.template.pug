@@ -1,0 +1,24 @@
+.container
+	h1 {{$ctrl.phone.name}}
+	.row
+		.col-md-4
+			img(ng-src="{{$ctrl.mainImgUrl}}").phone.img-responsive
+		.col-md-8
+			.row.thumbs
+				.col-md-2(ng-repeat="img in $ctrl.phone.images")
+						img(ng-src="{{img}}" ng-click="$ctrl.setImg(img)" ng-dblclick="$ctrl.onDblclick(img)").img-responsive
+	dl
+		dt Infrared
+		dd {{$ctrl.phone.connectivity.infrared | checkmark}}
+		dt GPS
+		dd {{$ctrl.phone.connectivity.gps | checkmark}}
+	p {{$ctrl.phone.description}}
+	ul.spec.list-unstyled
+		li
+			span 网络&功能
+			dl
+				dt 功能
+				dd(ng-repeat="avialability in $ctrl.phone$avialability") {{avialability}}
+		li
+			span 其它功能
+			dd {{$ctrl.phone.additionalFeatures}}
