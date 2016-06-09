@@ -14,6 +14,10 @@ var cssMin = require("gulp-clean-css");
 var rename = require("gulp-rename");
 // 保证顺序加载文件，.module.js文件先加载
 var order = require("gulp-order");
+// 自动添加CSS前缀
+var postcss = require('gulp-postcss');
+var sourcemaps = require('gulp-sourcemaps');
+var autoprefixer = require('autoprefixer');
 
 // 使用库文件
 var lib = function() {
@@ -58,10 +62,10 @@ var js = function() {
         .pipe(plumber())
         // .pipe(rename({ dirname: "" }))
         .pipe(order(["**/*.module.js",
-         "*core/**/*.js", 
-         "*.config.js",
-         "**/**/.service.js"
-         ]))
+            "*core/**/*.js",
+            "*.config.js",
+            "**/**/.service.js"
+        ]))
         .pipe(concat("index.js"))
         // .pipe(uglify())
         .pipe(gulp.dest("dist/js"))
@@ -88,6 +92,11 @@ var css = function() {
     return sass("app/**/*.sass")
         .pipe(concat("main.css"))
         .pipe(cssMin())
+        // 添加前缀
+        .pipe(sourcemaps.init())
+        .pipe(postcss([autoprefixer({ browsers: ['last 2 versions'] })]))
+        .pipe(sourcemaps.write('.'))
+        // ....
         .pipe(gulp.dest('dist/css'))
         .pipe(stream())
 };
